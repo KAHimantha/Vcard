@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+  <title>Happy Valentine</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel='stylesheet' href='style.css'>
+</head>
+
+<body>
+  <section class="sec">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-2 col-md-12 col-sm-12 col-12">
+          <h1>Happy Valentine's Day Babe!🩷</h1>
+        </div>
+        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+          <div class="text text-center">
+            <h4 class="text-white text-center">
+              <div id="lyrics"></div>
+            </h4>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="jquery.fireworks.js"></script>
+
+  <audio id="bg-music" autoplay>
+    <source src="music.mp3" type="audio/mp3">
+  </audio>
+
+  <button id="toggle-music" style="position: fixed; bottom: 10px; right: 10px;">🎵 Play/Pause</button>
+
+  <script>
+    const music = document.getElementById("bg-music");
+    const toggleButton = document.getElementById("toggle-music");
+    const lyricsContainer = document.getElementById("lyrics");
+
+    const lyrics = [
+      { time: 0.10, text: "This is me praying that...🎶" },
+      { time: 3.20, text: "This was the very first page" },
+      { time: 6.30, text: "Not where the storyline ends" },
+      { time: 9.00, text: "My thoughts will echo your name" },
+      { time: 12.00, text: "Until I see you again" },
+      { time: 15.00, text: "These are the words I held back" },
+      { time: 17.70, text: "As I was leaving too soon" },
+      { time: 21.00, text: "I was enchanted to meet you" },
+      { time: 26.50, text: "Please don't be in love with someone else" },
+      { time: 32.00, text: "Please don't have somebody waiting on you..." },
+      { time: 38.00, text: "Please don't be in love with someone else..." },
+      { time: 44.00, text: "Please don't have somebody" },
+      { time: 47.00, text: "Waiting on you...💜🎶" }
+    ];
+
+    let currentLyricIndex = 0;
+    let lastLyric = "";
+
+    // Update lyrics in sync with the music
+    function updateLyrics() {
+      let currentTime = music.currentTime;
+      if (currentLyricIndex < lyrics.length && currentTime >= lyrics[currentLyricIndex].time) {
+        let currentLyric = lyrics[currentLyricIndex];
+
+        // Display the lyric if it's not already displayed
+        if (currentLyric.text !== lastLyric) {
+          lyricsContainer.innerHTML = `<p>${currentLyric.text}</p>`;
+          lastLyric = currentLyric.text;
+          currentLyricIndex++;
+        }
+      }
+    }
+
+    setInterval(updateLyrics, 500);
+
+    toggleButton.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        toggleButton.textContent = "⏸ Pause";
+      } else {
+        music.pause();
+        toggleButton.textContent = "▶ Play";
+      }
+    });
+
+    $(".sec").fireworks({
+      sound: true,
+      height: "10%",
+      width: "50%",
+      opacity: 0.4
+    });
+  </script>
+
+</body>
+
+</html>
